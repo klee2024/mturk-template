@@ -1,57 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turker Description Task</title>
-  <!-- Add Bootstrap CSS link -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* Custom CSS styles */
-    /* Optionally, you can add additional custom styles here */
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div id="imageContainer">
-          <img id="personImage" src="path/to/your/image.jpg" class="img-fluid" alt="Person Image">
-        </div>
-        <div id="formContainer">
-          <form id="descriptionForm">
-            <!-- Bootstrap form elements -->
-            <div class="form-group">
-              <label for="gender">Gender:</label>
-              <input type="text" id="gender" name="gender" class="form-control" placeholder = "male" required>
-            </div>
-            <div class="form-group">
-              <label for="age">Age:</label>
-              <input type="text" id="age" name="age" class="form-control" placeholder = "mid 30s" required>
-            </div>
-            <div class="form-group">
-              <label for="age">Skin Color:</label>
-              <input type="text" id="age" name="age" class="form-control" required>
-            </div>
-            <!-- Add other form fields similarly -->
-            <div class="form-group">
-              <label for="additionalInfo">Additional Information:</label>
-              <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" required></textarea>
-            </div>
-            <input type="submit" value="Submit" class="btn btn-primary">
-          </form>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turker Description Task</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /* Custom CSS styles */
+      /* Optionally, you can add additional custom styles here */
+      #face_image{
+        display: None;
+      }
+      #description_form{
+        display: None;
+      }
+      
+      #form_instructions{
+        display: None;
+      }
+      
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <p>
+          <b>Instructions </b>
+        </p>
+        <ol>
+          <li>You will be shown a face for 1 minute </li>
+          <li> You will be asked to write a description using pre-determined fields (you will have 2 minutes and 30 seconds to write your description and submit)</li>
+          <li> When you are ready to view the face, please press the "View Face" button </li>
+        </ol>
+      </div>
+    </div>
+    
+        <div class="container" id = "start_button">
+      <div class="row justify-content-center">
+        <button type="button" onclick="start_experiment()">View Face</button>
+      </div>
+    </div>
+
+
+    <div class="container" id ="face_image">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div id="imageContainer">
+            <img id="personImage" src="Albert_Rohr_11_oval copy.jpg" class="img-fluid" alt="Person Image">
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Bootstrap JS (optional) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container" id ="form_instructions">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <p>
+            Please describe the face you saw 
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <script>
-    // JavaScript code goes here
-  </script>
-</body>
+    <div class="container" id = "description_form">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div id="formContainer">
+            <form id="descriptionForm">
+              <!-- Bootstrap form elements -->
+              <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender" class="form-control" placeholder="e.g., Male" required>
+              </div>
+              <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="text" id="age" name="age" class="form-control" placeholder="e.g., mid-30s" required>
+              </div>
+              <div class="form-group">
+                <label for="skincolor">Skin Color:</label>
+                <input type="text" id="skincolor" name="skincolor" class="form-control" placeholder="e.g., White" required>
+              </div>
+              <div class="form-group">
+                <label for="hair">Hair:</label>
+                <input type="text" id="hair" name="hair" class="form-control" placeholder="e.g., Short wavy brunette" required>
+              </div>
+              <div class="form-group">
+                <label for="eyebrows">Eyebrows:</label>
+                <input type="text" id="eyebrows" name="eyebrows" class="form-control" placeholder="e.g., Thick brown" required>
+              </div>
+              <div class="form-group">
+                <label for="eyes">Eyes:</label>
+                <input type="text" id="eyes" name="eyes" class="form-control" placeholder="e.g., Large brown" required>
+              </div>
+              <div class="form-group">
+                <label for="nose">Nose:</label>
+                <input type="text" id="nose" name="nose" class="form-control" placeholder="e.g., Small nostrils and pointed" required>
+              </div>
+              <div class="form-group">
+                <label for="jaw">Jaw:</label>
+                <input type="text" id="jaw" name="jaw" class="form-control" placeholder="e.g., Square" required>
+              </div>
+              <div class="form-group">
+                <label for="beard">Beard:</label>
+                <input type="text" id="beard" name="beard" class="form-control" placeholder="e.g., None">
+              </div>
+              <div class="form-group">
+                <label for="additionalInfo">Additional Information:</label>
+                <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="e.g., Wearing glasses, smiling" required></textarea>
+              </div>
+              <input type="submit" value="Submit" class="btn btn-primary btn-block">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      var button = document.getElementById('start_button');
+      var face_img = document.getElementById('face_image');
+      var form_elements = document.getElementById('description_form');
+       var form_instructions = document.getElementById('form_instructions');
+      var submission_warning = 
+        document.getElementById('form_instructions');
+      
+      function hide_image(){
+        face_img.style.display = "None";
+      }
+      
+      function hide_button(){
+        face_img.style.display = "None";
+      }
+      
+      function show_form_instructions(){
+        form_instructions.style.display = "block"
+      }
+      function show_description_form(){
+        form_elements.style.display = "block"
+      }
+      function show_submission_warning(){
+        
+      }
+      
+      function start_experiment(){
+        button.style.display = "None";
+        face_img.style.display = "block";
+        timer = setTimeout(hide_image, 60000); // 60000 milliseconds = 1 minute
+        timer = setTimeout(show_form_instructions, 60000); // 60000 milliseconds = 1 minute
+        timer = setTimeout(show_description_form, 60000); // 60000 milliseconds = 1 minute
+        
+      }
+      
+      
+      button.addEventListener('click', start_experiment);
+      // JavaScript code goes here
+    </script>
+  </body>
 </html>

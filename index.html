@@ -1,166 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turker Description Task</title>
-    <!-- Add Bootstrap CSS link -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      /* Custom CSS styles */
-      /* Optionally, you can add additional custom styles here */
-      #face_image{
-        display: None;
-      }
-      #description_form{
-        display: None;
-      }
-      
-      #form_instructions{
-        display: None;
-      }
-      
-    </style>
-  </head>
-  <body>
+<!-- You must include this JavaScript file -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
 
-    <div class="container">
-      <div class="row justify-content-center">
-        <p>
-          <b>Instructions </b>
-        </p>
-        <ol>
-          <li>You will be shown a face for 1 minute </li>
-          <li> You will be asked to write a description using pre-determined fields (you will have 2 minutes and 30 seconds to write your description and submit)</li>
-          <li> When you are ready to view the face, please press the "View Face" button </li>
-        </ol>
-      </div>
-    </div>
-    
-        <div class="container" id = "start_button">
+<style>
+  /* Custom CSS styles */
+  /* Optionally, you can add additional custom styles here */
+  #face_image {
+    display: none;
+  }
+
+  #description_form {
+    display: none;
+  }
+
+  #form_instructions {
+    display: none;
+  }
+
+  #form_warning {
+    color: red;
+    display: none;
+  }
+
+ 
+  #submit_button{
+      display: none;
+  }
+
+</style>
+
+<!-- For the full list of available Crowd HTML Elements and their input/output documentation,
+      please refer to https://docs.aws.amazon.com/sagemaker/latest/dg/sms-ui-template-reference.html -->
+
+<!-- You must include crowd-form so that your task submits answers to MTurk -->
+<crowd-form answer-format="flatten-objects">
+
+  <crowd-instructions link-text="View instructions" link-type="button">
+    <short-summary>
+      <p>Press the View Face button when you're ready and describe the face you see.</p>
+    </short-summary>
+
+    <detailed-instructions>
+      <h3>Instructions</h3>
+      <ol>
+        <li>You will be shown a face for 1 minute </li>
+        <li> You will be asked to write a description using pre-determined fields (you will have 2 minutes and 30 seconds to write your description and submit)</li>
+        <li> When you are ready to view the face, please press the "View Face" button </li>
+      </ol>
+    </detailed-instructions>
+    <positive-example>
+      <p>large nostrils, short nose bridge</p>
+      <p>The answer is descriptive. Multiple characteristics can be separated by a comma.</p>
+    </positive-example>
+
+    <negative-example>
+      <p>long brown hair</p>
+      <p>The answer is not very specific. The answer also should not contain the feature characteristic i.e. "hair" in the response.</p>
+    </negative-example>
+  </crowd-instructions>
+
+  <div class="experiment-body">
+    <crowd-button id="submit_button" form-action="submit" variant="primary" data-testid="crowd-submit">Submit</crowd-button>
+    <div class="container" id="start_button">
       <div class="row justify-content-center">
         <button type="button" onclick="start_experiment()">View Face</button>
       </div>
     </div>
 
-
-    <div class="container" id ="face_image">
+    <div class="container" id="face_image">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div id="imageContainer">
-            <img id="personImage" src="Albert_Rohr_11_oval copy.jpg" class="img-fluid" alt="Person Image">
+            <img id="personImage" class="img-fluid"  alt="Person Image">
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container" id ="form_instructions">
+    <div class="container" id="form_instructions">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <p>
-            Please describe the face you saw 
+            Please describe the face you saw
           </p>
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="container" id = "description_form">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div id="formContainer">
-            <form id="descriptionForm">
-              <!-- Bootstrap form elements -->
-              <div class="form-group">
-                <label for="gender">Gender:</label>
-                <input type="text" id="gender" name="gender" class="form-control" placeholder="e.g., Male" required>
-              </div>
-              <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="text" id="age" name="age" class="form-control" placeholder="e.g., mid-30s" required>
-              </div>
-              <div class="form-group">
-                <label for="skincolor">Skin Color:</label>
-                <input type="text" id="skincolor" name="skincolor" class="form-control" placeholder="e.g., White" required>
-              </div>
-              <div class="form-group">
-                <label for="hair">Hair:</label>
-                <input type="text" id="hair" name="hair" class="form-control" placeholder="e.g., Short wavy brunette" required>
-              </div>
-              <div class="form-group">
-                <label for="eyebrows">Eyebrows:</label>
-                <input type="text" id="eyebrows" name="eyebrows" class="form-control" placeholder="e.g., Thick brown" required>
-              </div>
-              <div class="form-group">
-                <label for="eyes">Eyes:</label>
-                <input type="text" id="eyes" name="eyes" class="form-control" placeholder="e.g., Large brown" required>
-              </div>
-              <div class="form-group">
-                <label for="nose">Nose:</label>
-                <input type="text" id="nose" name="nose" class="form-control" placeholder="e.g., Small nostrils and pointed" required>
-              </div>
-              <div class="form-group">
-                <label for="jaw">Jaw:</label>
-                <input type="text" id="jaw" name="jaw" class="form-control" placeholder="e.g., Square" required>
-              </div>
-              <div class="form-group">
-                <label for="beard">Beard:</label>
-                <input type="text" id="beard" name="beard" class="form-control" placeholder="e.g., None">
-              </div>
-              <div class="form-group">
-                <label for="additionalInfo">Additional Information:</label>
-                <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="e.g., Wearing glasses, smiling" required></textarea>
-              </div>
-              <input type="submit" value="Submit" class="btn btn-primary btn-block">
-            </form>
+      <div class="container" id="description_form">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div id="formContainer">
+              <form id="descriptionForm">
+                <div class="form-group">
+                  <p>Gender:</p>
+                  <select name="gender">
+                    <option name="female" value="female">Female</option>
+                    <option name="male" value="male">Male</option>
+                    <option name="other" value="other">Other / Unknown</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="age">Age:</label>
+                  <crowd-text-area id="age" name="age" class="form-control" placeholder="e.g., mid-30s" required>
+                </div>
+
+                <div class="form-group">
+                  <p>
+                    Race:
+                  </p>
+                  <select name="race">
+                    <option name="white" value="white">White</option>
+                    <option name="black" value="black">Black</option>
+                    <option name="asian" value="asian">East Asian</option>
+                    <option name="hispanic" value="hispanic">Hispanic</option>
+                    <option name="middle_eastern_south_asian" value="middle_eastern_south_asian">Middle Eastern or South Asian</option>
+                    <option name="other" value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="hair">Hair:</label>
+                  <crowd-text-area id="hair" name="hair" class="form-control" placeholder="e.g., Short wavy brunette" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="eyebrows">Eyebrows:</label>
+                  <crowd-text-area id="eyebrows" name="eyebrows" class="form-control" placeholder="e.g., Thick brown" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="eyes">Eyes:</label>
+                  <crowd-text-area id="eyes" name="eyes" class="form-control" placeholder="e.g., Large brown" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="nose">Nose:</label>
+                  <crowd-text-area id="nose" name="nose" class="form-control" placeholder="e.g., Small nostrils and pointed" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="jaw">Jaw:</label>
+                  <crowd-text-area id="jaw" name="jaw" class="form-control" placeholder="e.g., Square" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="beard">Beard:</label>
+                  <crowd-text-area id="beard" name="beard" class="form-control" placeholder="e.g., None">
+                </div>
+                
+                <div class="form-group">
+                  <p>Expression:</p>
+                  <select name="expression">
+                    <option name="smiling" value="smiling">Smiling</option>
+                    <option name="neutral" value="neutral">Neutral</option>
+                    <option name="other" value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="additionalInfo">Additional Information:</label>
+                  <crowd-text-area id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="e.g., Wearing glasses" required></textarea>
+                </div>
+
+                <div class="container" id="form_warning">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <p>
+                        Time is up - submit now!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+</crowd-form>
 
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-      var button = document.getElementById('start_button');
-      var face_img = document.getElementById('face_image');
-      var form_elements = document.getElementById('description_form');
-       var form_instructions = document.getElementById('form_instructions');
-      var submission_warning = 
-        document.getElementById('form_instructions');
-      
-      function hide_image(){
-        face_img.style.display = "None";
-      }
-      
-      function hide_button(){
-        face_img.style.display = "None";
-      }
-      
-      function show_form_instructions(){
-        form_instructions.style.display = "block"
-      }
-      function show_description_form(){
-        form_elements.style.display = "block"
-      }
-      function show_submission_warning(){
-        
-      }
-      
-      function start_experiment(){
-        button.style.display = "None";
-        face_img.style.display = "block";
-        timer = setTimeout(hide_image, 60000); // 60000 milliseconds = 1 minute
-        timer = setTimeout(show_form_instructions, 60000); // 60000 milliseconds = 1 minute
-        timer = setTimeout(show_description_form, 60000); // 60000 milliseconds = 1 minute
-        
-      }
-      
-      
-      button.addEventListener('click', start_experiment);
-      // JavaScript code goes here
-    </script>
-  </body>
-</html>
+<script>
+  var button = document.getElementById('start_button');
+  var face_img = document.getElementById('face_image');
+  var form_elements = document.getElementById('description_form');
+  var form_instructions = document.getElementById('form_instructions');
+  var submission_warning = document.getElementById('form_warning');
+  var submit_button = document.getElementById('submit_button');
+
+ // setting the person image based on the rows of the csv 
+  var imageUrl = "${AWSFile}";
+  document.getElementById("personImage").src = imageUrl;
+
+  function hide_image() {
+    face_img.style.display = "none";
+  }
+
+  function hide_button() {
+    face_img.style.display = "none";
+  }
+
+  function show_form_instructions() {
+    form_instructions.style.display = "block";
+  }
+
+  function show_description_form() {
+    form_elements.style.display = "block";
+  }
+
+  function show_submission_warning() {
+    submission_warning.style.display = "block";
+  }
+
+  function hide_form() {
+    form_elements.style.display = "none";
+    form_instructions.style.display = "none"
+  }
+
+  function show_submit() {
+    submit_button.style.display = "block";
+  }
+
+  function start_experiment() {
+    button.style.display = "none";
+    face_img.style.display = "block";
+    timer = setTimeout(hide_image, 60000); // 60000 milliseconds = 1 minute
+    timer = setTimeout(show_form_instructions, 60000); // 60000 milliseconds = 1 minute
+    timer = setTimeout(show_description_form, 60000); // 60000 milliseconds = 1 minute
+    timer = setTimeout(show_submission_warning, 195000); // 210000 milliseconds = 3 minutes 15 seconds
+    timer = setTimeout(show_submit, 196000); // 3 minutes 15 seconds
+    timer = setTimeout(hide_form, 196000); // 3 minutes 15 seconds 
+
+  }
+  button.addEventListener('click', start_experiment);
+</script>

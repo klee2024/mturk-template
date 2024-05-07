@@ -21,11 +21,10 @@
     display: none;
   }
 
- 
-  #submit_button{
-      display: none;
-  }
 
+  #submit_button {
+    display: none;
+  }
 </style>
 
 <!-- For the full list of available Crowd HTML Elements and their input/output documentation,
@@ -42,7 +41,7 @@
     <detailed-instructions>
       <h3>Instructions</h3>
       <ol>
-        <li>You will be shown a face for 1 minute </li>
+        <li>You will be shown a face for 1 minute. Afterwards, it will disappear </li>
         <li> You will be asked to write a description using pre-determined fields (you will have 2 minutes and 30 seconds to write your description and submit)</li>
         <li> When you are ready to view the face, please press the "View Face" button </li>
       </ol>
@@ -70,7 +69,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div id="imageContainer">
-            <img id="personImage" class="img-fluid"  alt="Person Image">
+            <img id="personImage" class="img-fluid" alt="Person Image">
           </div>
         </div>
       </div>
@@ -86,95 +85,115 @@
       </div>
     </div>
 
-      <div class="container" id="description_form">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div id="formContainer">
-              <form id="descriptionForm">
-                <div class="form-group">
-                  <p>Gender:</p>
-                  <select name="gender">
-                    <option name="female" value="female">Female</option>
-                    <option name="male" value="male">Male</option>
-                    <option name="other" value="other">Other / Unknown</option>
-                  </select>
-                </div>
+    <div class="container" id="description_form">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div id="formContainer">
+            <form id="descriptionForm">
+              <div class="form-group">
+                <p>Gender:</p>
+                <select name="gender">
+                  <option name="female" value="female">Female</option>
+                  <option name="male" value="male">Male</option>
+                  <option name="other" value="other">Other / Unknown</option>
+                </select>
+              </div>
 
-                <div class="form-group">
-                  <label for="age">Age:</label>
-                  <crowd-text-area id="age" name="age" class="form-control" placeholder="e.g., mid-30s" required>
-                </div>
+              <div class="form-group">
+                <label for="age">Age:</label>
+                <crowd-text-area id="age" name="age" class="form-control" placeholder="e.g., mid-30s" required>
+              </div>
 
-                <div class="form-group">
-                  <p>
-                    Race:
-                  </p>
-                  <select name="race">
-                    <option name="white" value="white">White</option>
-                    <option name="black" value="black">Black</option>
-                    <option name="asian" value="asian">East Asian</option>
-                    <option name="hispanic" value="hispanic">Hispanic</option>
-                    <option name="middle_eastern_south_asian" value="middle_eastern_south_asian">Middle Eastern or South Asian</option>
-                    <option name="other" value="other">Other</option>
-                  </select>
-                </div>
+              <div class="form-group">
+                <p>
+                  Race:
+                </p>
+                <select name="race">
+                  <option name="white" value="white">White</option>
+                  <option name="black" value="black">Black</option>
+                  <option name="asian" value="asian">East Asian</option>
+                  <option name="hispanic" value="hispanic">Hispanic</option>
+                  <option name="middle_eastern_south_asian" value="middle_eastern_south_asian">Middle Eastern or South Asian</option>
+                  <option name="other" value="other">Other</option>
+                </select>
+              </div>
 
-                <div class="form-group">
-                  <label for="hair">Hair:</label>
-                  <crowd-text-area id="hair" name="hair" class="form-control" placeholder="e.g., Short wavy brunette" required>
-                </div>
+              <div class="form-group">
+                <label for="hair">Hair:</label>
+                <crowd-text-area id="hair" name="hair" class="form-control" placeholder="e.g., Short wavy brunette" required>
+              </div>
 
-                <div class="form-group">
-                  <label for="eyebrows">Eyebrows:</label>
-                  <crowd-text-area id="eyebrows" name="eyebrows" class="form-control" placeholder="e.g., Thick brown" required>
-                </div>
+              <div class="form-group">
+                <label for="eyebrows">Eyebrows:</label>
+                <crowd-text-area id="eyebrows" name="eyebrows" class="form-control" placeholder="e.g., Thick brown" required>
+              </div>
 
-                <div class="form-group">
-                  <label for="eyes">Eyes:</label>
-                  <crowd-text-area id="eyes" name="eyes" class="form-control" placeholder="e.g., Large brown" required>
-                </div>
+              <div class="form-group">
+                <label for="eyes">Eyes:</label>
+                <crowd-text-area id="eyes" name="eyes" class="form-control" placeholder="e.g., Large brown" required>
+              </div>
 
-                <div class="form-group">
-                  <label for="nose">Nose:</label>
-                  <crowd-text-area id="nose" name="nose" class="form-control" placeholder="e.g., Small nostrils and pointed" required>
-                </div>
+              <div class="form-group">
+                <label for="nose">Nose:</label>
+                <crowd-text-area id="nose" name="nose" class="form-control" placeholder="e.g., Small nostrils and pointed" required>
+              </div>
 
-                <div class="form-group">
-                  <label for="jaw">Jaw:</label>
-                  <crowd-text-area id="jaw" name="jaw" class="form-control" placeholder="e.g., Square" required>
-                </div>
+              <div class="form-group">
+                <label for="jaw">Jaw:</label>
+                <crowd-text-area id="jaw" name="jaw" class="form-control" placeholder="e.g., Square" required>
+              </div>
 
-                <div class="form-group">
-                  <label for="beard">Beard:</label>
-                  <crowd-text-area id="beard" name="beard" class="form-control" placeholder="e.g., None">
-                </div>
-                
-                <div class="form-group">
-                  <p>Expression:</p>
-                  <select name="expression">
-                    <option name="smiling" value="smiling">Smiling</option>
-                    <option name="neutral" value="neutral">Neutral</option>
-                    <option name="other" value="other">Other</option>
-                  </select>
-                </div>
+              <div class="form-group">
+                <label for="beard">Beard:</label>
+                <crowd-text-area id="beard" name="beard" class="form-control" placeholder="e.g., None">
+              </div>
 
-                <div class="form-group">
-                  <label for="additionalInfo">Additional Information:</label>
-                  <crowd-text-area id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="e.g., Wearing glasses"></textarea>
-                </div>
+              <div class="form-group">
+                <p>Expression:</p>
+                <select name="expression">
+                  <option name="smiling" value="smiling">Smiling</option>
+                  <option name="neutral" value="neutral">Neutral</option>
+                  <option name="other" value="other">Other</option>
+                </select>
+              </div>
 
-                <div class="container" id="form_warning">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <p>
-                        Time is up - submit now!
-                      </p>
-                    </div>
+              <div class="form-group">
+                <label for="additionalInfo">Additional Information:</label>
+                <crowd-text-area id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="e.g., Wearing glasses"></textarea>
+              </div>
+
+              <div class="form-group">
+                <p>
+                  What is the next month?
+                </p>
+                <select name="catch">
+                  <option name="jan" value="jan">January</option>
+                  <option name="feb" value="feb">February</option>
+                  <option name="march" value="march">March</option>
+                  <option name="april" value="april">April</option>
+                  <option name="may" value="may">May</option>
+                  <option name="june" value="june">June</option>
+                  <option name="july" value="july">July</option>
+                  <option name="aug" value="august">August</option>
+                  <option name="sept" value="sept">September</option>
+                  <option name="oct" value="oct">October</option>
+                  <option name="nov" value="nov">November</option>
+                  <option name="dec" value="dev">December</option>
+                </select>
+              </div>
+
+              <div class="container" id="form_warning">
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <p>
+                      Time is up - submit now!
+                    </p>
                   </div>
                 </div>
-            </div>
+              </div>
           </div>
         </div>
+      </div>
 </crowd-form>
 
 
@@ -186,8 +205,8 @@
   var submission_warning = document.getElementById('form_warning');
   var submit_button = document.getElementById('submit_button');
 
- // setting the person image based on the rows of the csv 
-  var imageUrl = "${AWSFile}";
+  // setting the person image based on the rows of the csv 
+  var imageUrl = "{{  task.row_data['AWSFile'] }}";
   document.getElementById("personImage").src = imageUrl;
 
   function hide_image() {
